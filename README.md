@@ -17,17 +17,17 @@ A nodejs powered website containing blog, wiki, discuss and search engine.
 
 Nodejs: >= 8.x
 
-MySQL: 5.6 ~ 5.7（root 密码设置为 password）
+MySQL: 5.6 ~ 5.7（Set root password as password）
 
-Memcache （需要启动 memcached -m 32 -p 11211 -d start）
+Memcache （run memcached -m 32 -p 11211 -d start）
 
-Nginx（需要启动，并将端口号修改为80）
+Nginx（run and change the port form 8080 to 80）
 
 ### Configurations
 
 You should make a copy of `config_default.js` to `config_<NODE_ENV>.js`, and override some of the settings you needed.
 
-For example, if NODE_ENV=production, you need create `config_/usr/local/bin/node.js`（www 目录下执行）:
+For example, if NODE_ENV=production, you need create `config_/usr/local/bin/node.js`（In the directory of www）:
 
     $ cp www/config_default.js www/config_/usr/local/bin/node.js
 
@@ -35,19 +35,21 @@ You can safely remove any settings you do not changed.
 
 ### Install packages
 
-Run `npm install`（www 目录下执行） to install all required packages:
+Run `npm install`（In the directory of www） to install all required packages:
 
     $ npm install
 
 ### Initialize database
 
-Run `node  script/init-db.js > init_db.sql` （www 目录下执行）to generate initial schema as well as administrator's email and password.
+Run `node  script/init-db.js > init_db.sql` （In the directory of www）to generate initial schema as well as administrator's email and password.
 
-You will get `init_db.sql` file in current directory. Run this SQL script by(www 目录下执行):
+You will get `init_db.sql` file in current directory. Run this SQL script by(www):
 
     $ mysql -u root -p < init_db.sql
 
-NOTE: re-run this SQL file will remove all existing data.
+NOTE: 
+* Running the command above needs ur input of email & password, which would be required when you login as admin user, `SO BEAR THAT IN UR MIND `
+* Re-run this SQL file will remove all existing data.
 
 ### Compile CSS
 Run `sudo npm install less -gd` to install less globally;
@@ -61,7 +63,10 @@ The CSS files should be compiled properly.
 
 You should able to see the home page in the browser with address `http://localhost:2017/`.
 
-If you want to sign in to management console, go to `http://localhost:2017/manage/signin`, and sign in using the email and password you entered when running `node schema`.
+If you want to sign in to management console, go to `http://localhost:2017/manage/signin`, and sign in using the email and password you entered when running `node script/node-db.js`.
+
+### Maintaining
+If there is an error occured that is `Invalid parameter: image`,u need to run `brew install GraphicsMagick ImageMagick` in Terminal.  Visiting [Issues](https://github.com/michaelliao/itranswarp.js/issues?q=is%3Aissue+is%3Aclosed) for more information.
 
 ### Test
 
