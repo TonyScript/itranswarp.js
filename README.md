@@ -17,37 +17,51 @@ A nodejs powered website containing blog, wiki, discuss and search engine.
 
 Nodejs: >= 8.x
 
-MySQL: 5.6 ~ 5.7
+MySQL: 5.6 ~ 5.7（root 密码设置为 password）
 
-Memcache
+Memcache （需要启动 memcached -m 32 -p 11211 -d start）
 
-Nginx
+Nginx（需要启动，并将端口号修改为80）
 
 ### Configurations
 
 You should make a copy of `config_default.js` to `config_<NODE_ENV>.js`, and override some of the settings you needed.
 
-For example, if NODE_ENV=production, you need create `config_production.js`:
+For example, if NODE_ENV=production, you need create `config_/usr/local/bin/node.js`（www 目录下执行）:
 
-    $ cp www/config_default.js www/config_production.js
+    $ cp www/config_default.js www/config_/usr/local/bin/node.js
 
 You can safely remove any settings you do not changed.
 
 ### Install packages
 
-Run `npm install` to install all required packages:
+Run `npm install`（www 目录下执行） to install all required packages:
 
     $ npm install
 
 ### Initialize database
 
-Run `node schema > init_db.sql` to generate initial schema as well as administrator's email and password.
+Run `node  script/init-db.js > init_db.sql` （www 目录下执行）to generate initial schema as well as administrator's email and password.
 
-You will get `init_db.sql` file in current directory. Run this SQL script by:
+You will get `init_db.sql` file in current directory. Run this SQL script by(www 目录下执行):
 
     $ mysql -u root -p < init_db.sql
 
 NOTE: re-run this SQL file will remove all existing data.
+
+### Compile CSS
+Run `sudo npm install less -gd` to install less globally;
+Run `sudo npm install less-watch-compiler`to install less-watch-compiler
+Then draging the less.sh to Terminal and press return
+The CSS files should be compiled properly.
+
+### Run
+
+    $ node start.js
+
+You should able to see the home page in the browser with address `http://localhost:2017/`.
+
+If you want to sign in to management console, go to `http://localhost:2017/manage/signin`, and sign in using the email and password you entered when running `node schema`.
 
 ### Test
 
@@ -62,13 +76,6 @@ Then run:
 
 Schema will be created in MySQL `test` database before run tests.
 
-### Run
-
-    $ node start.js
-
-You should able to see the home page in the browser with address `http://localhost:2017/`.
-
-If you want to sign in to management console, go to `http://localhost:2017/manage/signin`, and sign in using the email and password you entered when running `node schema`.
 
 ### Changelog
 
@@ -153,3 +160,5 @@ CREATE TABLE `admaterials` (
 
 * support article, wiki, discuss.
 * based on koa 1.x
+
+
